@@ -1,0 +1,39 @@
+{
+  "name": "@clean-ddd-nestjs/monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "workspaces": [
+    "./packages/@core",
+    "./packages/nestjs"
+  ],
+  "scripts": {
+    "prebuild:dev": "npm run build -w @clean-ddd-nestjs/core",
+    "start:dev": "npm run build:w -w @clean-ddd-nestjs/core & npm run start:dev -w nestjs",
+    "test": "jest",
+    "format": "prettier --write \"packages/@core/src/**/*.ts\" \"packages/nestjs/src/**/*.ts\" \"packages/nestjs/test/**/*.ts\"",
+    "lint": "eslint \"packages/@core/{src,apps,libs,test}/**/*.ts\" \"packages/nestjs/{src,apps,libs,test}/**/*.ts\" --fix",
+    "core:build": "npm run build -w @clean-ddd-nestjs/core",
+    "core:build:w": "npm run build:w -w @clean-ddd-nestjs/core",
+    "core:cti": "npm run cti -w @clean-ddd-nestjs/core",
+    "core:cti:@core": "npm run cti:@core -w @clean-ddd-nestjs/core",
+    "core:cti:clean": "npm run cti:clean -w @clean-ddd-nestjs/core",
+    "core:start:dev": "npm run start:dev -w @clean-ddd-nestjs/core",
+    "core:test": "npm run test -w @clean-ddd-nestjs/core",
+    "core:test:cov": "npm run test:cov -w @clean-ddd-nestjs/core",
+    "core:test:watch": "npm run test:watch -w @clean-ddd-nestjs/core",
+    "nestjs:build": "npm run build -w nestjs",
+    "nestjs:format": "npm run format -w nestjs",
+    "nestjs:start:dev": "npm run start:dev -w nestjs",
+    "nestjs:test": "npm run test -w nestjs",
+    "nestjs:test:cov": "npm run test:cov -w nestjs",
+    "nestjs:test:watch": "npm run test:watch -w nestjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/mapped-types": "*",
+    "chalk": "^5.2.0"
+  }
+}
