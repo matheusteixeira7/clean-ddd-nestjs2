@@ -1,13 +1,13 @@
-import { AddProductUseCase } from './add-product.usecase';
+import { AddProductUseCase } from './add-product.usecase'
 
 const mockRepository = {
   add: jest.fn(),
   find: jest.fn(),
-};
+}
 
 describe('AddProductUseCase', () => {
   it('should add product', async () => {
-    const addProductUseCase = new AddProductUseCase(mockRepository);
+    const addProductUseCase = new AddProductUseCase(mockRepository)
     const input = {
       category: 'electronics',
       colors: [{ name: 'red', bgColor: '#ff0000', selectedColor: '#ff0000' }],
@@ -27,10 +27,10 @@ describe('AddProductUseCase', () => {
       size: ['M', 'L'],
       stock: 10,
       subcategory: 'laptops',
-    };
+    }
 
-    await addProductUseCase.execute(input);
+    await addProductUseCase.execute(input)
 
-    expect(mockRepository.add).toHaveBeenCalled();
-  });
-});
+    expect(mockRepository.add).toHaveBeenCalled()
+  })
+})

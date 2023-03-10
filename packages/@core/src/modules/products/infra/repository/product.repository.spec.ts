@@ -1,6 +1,6 @@
-import { Sequelize } from 'sequelize-typescript';
-import { ProductModel, ProductRepository } from '#modules/products/infra';
-import { Product } from '#modules/products/domain';
+import { Sequelize } from 'sequelize-typescript'
+import { ProductModel, ProductRepository } from '#modules/products/infra'
+import { Product } from '#modules/products/domain'
 
 const input = {
   id: '123',
@@ -22,10 +22,10 @@ const input = {
   size: ['M', 'L'],
   stock: 10,
   subcategory: 'laptops',
-};
+}
 
 describe('Product repository test', () => {
-  let sequelize: Sequelize;
+  let sequelize: Sequelize
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -33,51 +33,51 @@ describe('Product repository test', () => {
       storage: ':memory:',
       logging: false,
       sync: { force: true },
-    });
+    })
 
-    sequelize.addModels([ProductModel]);
-    await sequelize.sync();
-  });
+    sequelize.addModels([ProductModel])
+    await sequelize.sync()
+  })
 
   afterEach(async () => {
-    await sequelize.close();
-  });
+    await sequelize.close()
+  })
 
   it('should create a product', async () => {
-    const product = new Product(input);
-    const productRepository = new ProductRepository();
-    await productRepository.add(product);
-    const productDb = await productRepository.find(product.id);
+    const product = new Product(input)
+    const productRepository = new ProductRepository()
+    await productRepository.add(product)
+    const productDb = await productRepository.find(product.id)
 
-    expect(productDb?.id).toBe(input.id);
-    expect(productDb?.name).toBe(input.name);
-    expect(productDb?.description).toBe(input.description);
-    expect(productDb?.price).toBe(input.price);
-    expect(productDb?.rating).toBe(input.rating);
-    expect(productDb?.stock).toBe(input.stock);
-    expect(productDb?.subcategory).toBe(input.subcategory);
-    expect(productDb?.category).toBe(input.category);
-    expect(productDb?.size).toEqual(input.size);
-    expect(productDb?.images).toEqual(input.images);
-    expect(productDb?.colors).toEqual(input.colors);
-    expect(productDb?.details).toEqual(input.details);
-    expect(productDb?.createdAt).toBeDefined();
-    expect(productDb?.updatedAt).toBeDefined();
-  });
+    expect(productDb?.id).toBe(input.id)
+    expect(productDb?.name).toBe(input.name)
+    expect(productDb?.description).toBe(input.description)
+    expect(productDb?.price).toBe(input.price)
+    expect(productDb?.rating).toBe(input.rating)
+    expect(productDb?.stock).toBe(input.stock)
+    expect(productDb?.subcategory).toBe(input.subcategory)
+    expect(productDb?.category).toBe(input.category)
+    expect(productDb?.size).toEqual(input.size)
+    expect(productDb?.images).toEqual(input.images)
+    expect(productDb?.colors).toEqual(input.colors)
+    expect(productDb?.details).toEqual(input.details)
+    expect(productDb?.createdAt).toBeDefined()
+    expect(productDb?.updatedAt).toBeDefined()
+  })
 
   it('should find a product', async () => {
-    const product = new Product(input);
-    const productRepository = new ProductRepository();
-    await productRepository.add(product);
-    const productDb = await productRepository.find(product.id);
-    expect(productDb?.id).toBe(product.id);
-  });
+    const product = new Product(input)
+    const productRepository = new ProductRepository()
+    await productRepository.add(product)
+    const productDb = await productRepository.find(product.id)
+    expect(productDb?.id).toBe(product.id)
+  })
 
   it('should throw error if product given id is not found', async () => {
-    const invalidId = 'invalid_id';
-    const productRepository = new ProductRepository();
+    const invalidId = 'invalid_id'
+    const productRepository = new ProductRepository()
     await expect(
       async () => await productRepository.find(invalidId),
-    ).rejects.toThrowError(`Product with id ${invalidId} not found`);
-  });
-});
+    ).rejects.toThrowError(`Product with id ${invalidId} not found`)
+  })
+})

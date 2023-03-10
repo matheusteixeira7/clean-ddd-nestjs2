@@ -1,9 +1,7 @@
-import { type NotificationErrorProps } from './notification';
+import { type NotificationErrorProps } from './notification'
 
 export class NotificationError extends Error {
   constructor(public errors: NotificationErrorProps[]) {
-    super(
-      errors.map((error) => `${error.context}: ${error.message}`).join(','),
-    );
+    super(errors.map((error) => `${error.context}: ${error.message}`).join(','))
   }
 }

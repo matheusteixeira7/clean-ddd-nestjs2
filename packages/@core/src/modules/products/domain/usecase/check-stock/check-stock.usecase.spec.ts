@@ -3,7 +3,7 @@ import {
   CheckStockUseCase,
   type CheckStockInputDto,
   type CheckStockOutputDto,
-} from '#modules/products/domain';
+} from '#modules/products/domain'
 
 // Create a mock product
 const product = new Product({
@@ -26,16 +26,16 @@ const product = new Product({
   size: ['M', 'L'],
   stock: 5,
   subcategory: 'laptops',
-});
+})
 
 // Create a mock product repository
 const mockProductRepository = {
   find: jest.fn().mockResolvedValue(product),
   add: jest.fn(),
-};
+}
 
 // Create a new instance of the CheckStockUseCase class using the mock repository
-const checkStockUseCase = new CheckStockUseCase(mockProductRepository);
+const checkStockUseCase = new CheckStockUseCase(mockProductRepository)
 
 describe('CheckStockUseCase', () => {
   it('should return available true', async () => {
@@ -43,26 +43,26 @@ describe('CheckStockUseCase', () => {
     const input: CheckStockInputDto = {
       productId: 'abc123',
       quantity: 5,
-    };
+    }
 
     // Call the execute method with the input DTO
-    const output: CheckStockOutputDto = await checkStockUseCase.execute(input);
+    const output: CheckStockOutputDto = await checkStockUseCase.execute(input)
 
     // Assert that the correct product stock was returned
-    expect(output).toEqual({ productId: 'abc123', available: true });
-  });
+    expect(output).toEqual({ productId: 'abc123', available: true })
+  })
 
   it('should return available false', async () => {
     // Create an example input DTO
     const input: CheckStockInputDto = {
       productId: 'abc123',
       quantity: 10,
-    };
+    }
 
     // Call the execute method with the input DTO
-    const output: CheckStockOutputDto = await checkStockUseCase.execute(input);
+    const output: CheckStockOutputDto = await checkStockUseCase.execute(input)
 
     // Assert that the correct product stock was returned
-    expect(output).toEqual({ productId: 'abc123', available: false });
-  });
-});
+    expect(output).toEqual({ productId: 'abc123', available: false })
+  })
+})

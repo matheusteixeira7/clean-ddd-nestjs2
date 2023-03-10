@@ -1,5 +1,5 @@
-import { Product } from '#modules/products/domain';
-import { type ProductGateway, ProductModel } from '#modules/products/infra';
+import { Product } from '#modules/products/domain'
+import { type ProductGateway, ProductModel } from '#modules/products/infra'
 
 export class ProductRepository implements ProductGateway {
   async add(product: Product): Promise<void> {
@@ -18,16 +18,16 @@ export class ProductRepository implements ProductGateway {
       stock: product.stock,
       subcategory: product.subcategory,
       updatedAt: new Date(),
-    });
+    })
   }
 
   async find(id: string): Promise<Product> {
     const product = await ProductModel.findOne({
       where: { id },
-    });
+    })
 
     if (product == null) {
-      throw new Error(`Product with id ${id} not found`);
+      throw new Error(`Product with id ${id} not found`)
     }
 
     return new Product({
@@ -45,6 +45,6 @@ export class ProductRepository implements ProductGateway {
       stock: product.stock,
       subcategory: product.subcategory,
       updatedAt: product.updatedAt,
-    });
+    })
   }
 }

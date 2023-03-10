@@ -1,5 +1,5 @@
-import { MakeProductFacade, ProductModel } from '#modules/products/infra';
-import { Sequelize } from 'sequelize-typescript';
+import { MakeProductFacade, ProductModel } from '#modules/products/infra'
+import { Sequelize } from 'sequelize-typescript'
 
 const input = {
   id: '123',
@@ -21,11 +21,11 @@ const input = {
   size: ['M', 'L'],
   stock: 10,
   subcategory: 'laptops',
-};
+}
 
 describe('ProductFacade', () => {
-  let sequelize: Sequelize;
-  let productFacade: ReturnType<typeof MakeProductFacade.make>;
+  let sequelize: Sequelize
+  let productFacade: ReturnType<typeof MakeProductFacade.make>
 
   beforeEach(async () => {
     sequelize = new Sequelize({
@@ -33,58 +33,58 @@ describe('ProductFacade', () => {
       storage: ':memory:',
       logging: false,
       sync: { force: true },
-    });
+    })
 
-    sequelize.addModels([ProductModel]);
-    await sequelize.sync();
+    sequelize.addModels([ProductModel])
+    await sequelize.sync()
 
-    productFacade = MakeProductFacade.make();
-    await productFacade.addProduct(input);
-  });
+    productFacade = MakeProductFacade.make()
+    await productFacade.addProduct(input)
+  })
 
   afterEach(async () => {
-    await sequelize.close();
-  });
+    await sequelize.close()
+  })
 
   it('should create a product', async () => {
-    const product = await ProductModel.findOne({ where: { id: '123' } });
-    expect(product?.id).toBeDefined();
-    expect(product?.name).toBe(input.name);
-    expect(product?.description).toBe(input.description);
-    expect(product?.price).toBe(input.price);
-    expect(product?.rating).toBe(input.rating);
-    expect(product?.stock).toBe(input.stock);
-    expect(product?.subcategory).toBe(input.subcategory);
-    expect(product?.category).toBe(input.category);
-    expect(product?.size).toEqual(input.size);
-    expect(product?.images).toEqual(input.images);
-    expect(product?.colors).toEqual(input.colors);
-    expect(product?.details).toEqual(input.details);
-    expect(product?.createdAt).toBeDefined();
-    expect(product?.updatedAt).toBeDefined();
-  });
+    const product = await ProductModel.findOne({ where: { id: '123' } })
+    expect(product?.id).toBeDefined()
+    expect(product?.name).toBe(input.name)
+    expect(product?.description).toBe(input.description)
+    expect(product?.price).toBe(input.price)
+    expect(product?.rating).toBe(input.rating)
+    expect(product?.stock).toBe(input.stock)
+    expect(product?.subcategory).toBe(input.subcategory)
+    expect(product?.category).toBe(input.category)
+    expect(product?.size).toEqual(input.size)
+    expect(product?.images).toEqual(input.images)
+    expect(product?.colors).toEqual(input.colors)
+    expect(product?.details).toEqual(input.details)
+    expect(product?.createdAt).toBeDefined()
+    expect(product?.updatedAt).toBeDefined()
+  })
 
   it('should check product stock availability and return true', async () => {
     const result = await productFacade.checkStock({
       productId: '123',
       quantity: 1,
-    });
-    expect(result.productId).toBe(input.id);
-    expect(result.available).toBe(true);
-  });
+    })
+    expect(result.productId).toBe(input.id)
+    expect(result.available).toBe(true)
+  })
 
   it('should check product stock availability and return false', async () => {
     const result = await productFacade.checkStock({
       productId: '123',
       quantity: 11,
-    });
-    expect(result.productId).toBe(input.id);
-    expect(result.available).toBe(false);
-  });
+    })
+    expect(result.productId).toBe(input.id)
+    expect(result.available).toBe(false)
+  })
 
   it('should throw error if product given id is not found', async () => {
     await expect(
       productFacade.checkStock({ productId: '456', quantity: 1 }),
-    ).rejects.toThrowError('Product with id 456 not found');
-  });
-});
+    ).rejects.toThrowError('Product with id 456 not found')
+  })
+})

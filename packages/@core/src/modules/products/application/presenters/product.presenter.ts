@@ -1,5 +1,5 @@
-import { toXML } from 'jstoxml';
-import { type CheckStockFacadeOutputDto } from '#modules/products/application';
+import { toXML } from 'jstoxml'
+import { type CheckStockFacadeOutputDto } from '#modules/products/application'
 
 export class CheckProductStockPresenter {
   public static toXML(data: CheckStockFacadeOutputDto): string {
@@ -8,7 +8,7 @@ export class CheckProductStockPresenter {
       indent: '  ',
       newline: '\n',
       allowEmpty: true,
-    };
+    }
 
     return toXML(
       {
@@ -18,6 +18,6 @@ export class CheckProductStockPresenter {
         },
       },
       xmlOptions,
-    );
+    )
   }
 }

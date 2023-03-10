@@ -1,6 +1,6 @@
-import * as yup from 'yup';
-import { type Product } from '#modules/products/domain';
-import { type ValidatorInterface } from '#seedwork/domain';
+import * as yup from 'yup'
+import { type Product } from '#modules/products/domain'
+import { type ValidatorInterface } from '#seedwork/domain'
 
 export class ProductYupValidator implements ValidatorInterface<Product> {
   validate(product: Product): void {
@@ -44,17 +44,17 @@ export class ProductYupValidator implements ValidatorInterface<Product> {
         size: yup.array().of(yup.string().required()).required(),
         stock: yup.number().required(),
         subcategory: yup.string().required(),
-      });
+      })
 
-      schema.validateSync(product, { abortEarly: false });
+      schema.validateSync(product, { abortEarly: false })
     } catch (error) {
-      const e = error as yup.ValidationError;
+      const e = error as yup.ValidationError
 
       for (const err of e.errors) {
         product.notification.addError({
           context: 'Product',
           message: err,
-        });
+        })
       }
     }
   }
